@@ -212,6 +212,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </div>
 
         <div class="form-group">
+            <label class="required">Team:</label>
+            <input type="text" name="year" required placeholder="e.g., Horeb">
+            </div>
+        <div class="form-group">
             <label class="required">Register As:</label>
             <select name="role" id="role" onchange="showOptions()" required>
                 <option value="">-- Select Your Role --</option>
@@ -314,3 +318,4 @@ window.onload = function() {
 
 </body>
 </html>
+
