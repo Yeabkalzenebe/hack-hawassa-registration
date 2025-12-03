@@ -9,7 +9,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         "name" => $_POST["name"] ?? '',
         "department" => $_POST["department"] ?? '',
         "year" => $_POST["year"] ?? '',
-        "role" => $_POST["role"] ?? ''
+        "role" => $_POST["role"] ?? '',
+        "expectations" => $_POST["expectations"] ?? ''  // Added this line
     ];
 
     // Add role-specific data
@@ -32,7 +33,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     file_put_contents($file, json_encode($old, JSON_PRETTY_PRINT));
 
     // Redirect to same page to clear form (POST-REDIRECT-GET pattern)
-    header("Location: " . $_SERVER['PHP_SELF']);
+    header("Location: " . $_SERVER['PHP_SELF'] . "?success=1");
     exit();
 }
 ?>
@@ -77,7 +78,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             margin-bottom: 5px;
         }
 
-        input, select {
+        input, select, textarea {
             width: 100%;
             padding: 12px;
             border: 2px solid #ddd;
@@ -87,7 +88,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             box-sizing: border-box;
         }
 
-        input:focus, select:focus {
+        textarea {
+            min-height: 100px;
+            resize: vertical;
+            font-family: Arial, sans-serif;
+        }
+
+        input:focus, select:focus, textarea:focus {
             border-color: #4867efff;
             outline: none;
             box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
@@ -133,6 +140,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             color: #e74c3c;
         }
 
+        .optional {
+            color: #666;
+            font-size: 0.9em;
+            font-weight: normal;
+        }
+
         /* Animation for role sections */
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(-10px); }
@@ -143,7 +156,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             animation: fadeIn 0.3s ease;
         }
 
-        /* Success flash message (optional) */
+        /* Success flash message */
         .flash-message {
             background: #4CAF50;
             color: white;
@@ -162,6 +175,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         @keyframes slideDown {
             from { opacity: 0; transform: translateY(-20px); }
             to { opacity: 1; transform: translateY(0); }
+        }
+
+        .expectations-section {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
         }
     </style>
 </head>
@@ -229,8 +248,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <option value="Song Maker">🎹 Song Maker</option>
             </select>
         </div>
-        <div> 
-            <legend> what do you expect from this </legend>
+
+        <!-- EXPECTATIONS SECTION -->
+        <div class="expectations-section form-group">
+            <label>What do you expect from this program? <span class="optional">(Optional)</span></label>
+            <textarea 
+                name="expectations" 
+                placeholder="Please share your expectations, goals, or what you hope to learn from Hack-Hawassa..."
+                maxlength="500"
+            ></textarea>
+            <small style="color: #666; display: block; text-align: right; margin-top: 5px;">Max 500 characters</small>
         </div>
 
         <button type="submit">📝 Register Now</button>
@@ -261,7 +288,7 @@ function showOptions() {
     }
 }
 
-// Check if form was just submitted (using URL parameter or session)
+// Check if form was just submitted
 window.onload = function() {
     const urlParams = new URLSearchParams(window.location.search);
     if (urlParams.has('success')) {
@@ -277,7 +304,7 @@ window.onload = function() {
         history.replaceState({}, document.title, window.location.pathname);
     }
     
-    // Clear form after successful submission (optional)
+    // Clear form after successful submission
     const url = window.location.href;
     if (!url.includes('?')) {
         document.getElementById('registrationForm').reset();
