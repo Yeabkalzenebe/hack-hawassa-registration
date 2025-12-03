@@ -1,7 +1,5 @@
 <?php
-// ===============================
-// SAVE REGISTRATION (SILENT)
-// ===============================
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
     // Collect form data
@@ -42,10 +40,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <html>
 <head>
     <title>Hack-Hawassa Registration</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
         body {
             font-family: Arial, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #3053f1ff 0%, #ddd2e8ff 100%);
             padding: 01px;
             min-height: 120vh;
             margin: 0;
@@ -61,6 +61,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             border-radius: 15px;
             padding: 20px;
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            font-family: 'Times New Roman', Times, serif;
         }
 
         h2 {
@@ -188,8 +189,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <body>
 
 <div class="container">
-    <h2> Hack-Hawassa Registration</h2>
-    
+    <h2> Hack-Hawassa Registration <br>
+         HOREB DS <br>
+        💻DIGITAL MISSION<BR>
+        ♾️ETERNAL VISSON
+    </h2>
     <!-- Flash message (hidden by default) -->
     <div id="flashMessage" class="flash-message">
         ✅ Registration submitted successfully!
@@ -211,10 +215,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <input type="text" name="year" required placeholder="e.g., 3rd year">
         </div>
 
-        <div class="form-group">
+         <div class="form-group">
             <label class="required">Team:</label>
             <input type="text" name="year" required placeholder="e.g., Horeb">
             </div>
+
         <div class="form-group">
             <label class="required">Register As:</label>
             <select name="role" id="role" onchange="showOptions()" required>
@@ -318,4 +323,3 @@ window.onload = function() {
 
 </body>
 </html>
-
